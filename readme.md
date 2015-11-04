@@ -31,4 +31,4 @@ The logging is redirected to stdout so that the container is aware of what's hap
 
 ## Volumes
 
-The image sets the ```/app``` volume to be able to access project code from a host or be overidden by a [data-container](https://medium.com/@ramangupta/why-docker-data-containers-are-good-589b3c6c749e).
+The image sets the ```/app``` volume to be able to access project code from a host or be overiden by a [data-container](https://medium.com/@ramangupta/why-docker-data-containers-are-good-589b3c6c749e).
