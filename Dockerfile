@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env docker
 
 FROM mychiara/docker-webbase
 MAINTAINER Andy Ruck <mychiara+docker@gmail.com>
