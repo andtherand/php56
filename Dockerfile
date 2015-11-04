@@ -9,6 +9,7 @@ RUN echo "deb http://ppa.launchpad.net/ondrej/php5-5.6/ubuntu trusty main" >> /e
     apt-get update && \
 
     apt-get install --no-install-recommends -y \
+    imagemagick \
     ca-certificates \
     php5-cli \
     php5-dev \
@@ -28,9 +29,7 @@ RUN echo "deb http://ppa.launchpad.net/ondrej/php5-5.6/ubuntu trusty main" >> /e
     php5-fpm && \
 
     curl https://getcomposer.org/installer | php -- && mv composer.phar /usr/local/bin/composer && chmod +x /usr/local/bin/composer && \
-    mkdir -p /var/log/php && \
-    ln -sf /dev/stdout /var/log/php/error.log && \
-    ln -sf /dev/stdout /var/log/php5-fpm.log && \
+    mkdir -p /var/log/php && ln -sf /dev/stdout /var/log/php/error.log && ln -sf /dev/stdout /var/log/php5-fpm.log && \
 
     apt-get -y autoremove && \
     apt-get clean && \
