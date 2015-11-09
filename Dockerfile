@@ -12,7 +12,6 @@ RUN echo "deb http://ppa.launchpad.net/ondrej/php5-5.6/ubuntu trusty main" >> /e
     imagemagick \
     ca-certificates \
     php5-cli \
-    php5-dev \
     php5-apcu \
     php5-json \
     php5-pgsql \
@@ -25,7 +24,6 @@ RUN echo "deb http://ppa.launchpad.net/ondrej/php5-5.6/ubuntu trusty main" >> /e
     php5-imagick php5-gd \
     php5-curl \
     php5-readline \
-    php5-xdebug \
     php5-fpm && \
 
     curl https://getcomposer.org/installer | php -- && mv composer.phar /usr/local/bin/composer && chmod +x /usr/local/bin/composer && \
