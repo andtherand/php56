@@ -1,6 +1,6 @@
 #!/usr/bin/env docker
 
-FROM mychiara/docker-webbase
+FROM mychiara/base
 MAINTAINER Andy Ruck <mychiara+docker@gmail.com>
 
 # Enable PHP 5.6 repo and update apt-get
@@ -8,7 +8,7 @@ RUN echo "deb http://ppa.launchpad.net/ondrej/php5-5.6/ubuntu trusty main" >> /e
     apt-key adv --keyserver keyserver.ubuntu.com --recv-key E5267A6C && \
     apt-get update && \
 
-    apt-get install --no-install-recommends -y \
+    apt-get install --no-install-recommends -yq \
     imagemagick \
     ca-certificates \
     php5-cli \
@@ -31,10 +31,8 @@ RUN echo "deb http://ppa.launchpad.net/ondrej/php5-5.6/ubuntu trusty main" >> /e
     curl https://getcomposer.org/installer | php -- && mv composer.phar /usr/local/bin/composer && chmod +x /usr/local/bin/composer && \
     mkdir -p /var/log/php && ln -sf /dev/stdout /var/log/php/error.log && ln -sf /dev/stdout /var/log/php5-fpm.log && \
 
-    apt-get -y autoremove && \
-    apt-get clean && \
-    apt-get autoclean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    apt-get autoclean && apt-get -y autoremove && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Copy local .inis to the image
 COPY files/php.ini /etc/php5/fpm/php.ini
