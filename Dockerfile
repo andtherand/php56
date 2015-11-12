@@ -1,6 +1,6 @@
 #!/usr/bin/env docker
 
-FROM mychiara/base
+FROM mychiara/webbase
 MAINTAINER Andy Ruck <mychiara+docker@gmail.com>
 
 # Enable PHP 5.6 repo and update apt-get
@@ -44,6 +44,6 @@ RUN mkdir -p /etc/service/php-fpm /var/run/php-fpm
 ADD /files/start.sh /etc/service/php-fpm/run
 RUN chmod +x /etc/service/php-fpm/run
 
-VOLUME "/app"
+VOLUME "/app-src"
 
 EXPOSE 9000
