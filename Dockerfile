@@ -42,6 +42,6 @@ RUN mkdir -p /etc/service/php-fpm /var/run/php-fpm
 ADD /files/start.sh /etc/service/php-fpm/run
 RUN chmod +x /etc/service/php-fpm/run
 
-VOLUME "/my-src"
+VOLUME "/app-src"
 
 EXPOSE 9000
