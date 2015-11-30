@@ -21,6 +21,7 @@ It' s using PHP 5.6 and installs some very basic PHP modules.
 * php5-gd 
 * php5-curl 
 * php5-readline 
+* php5-twig
 * php5-xdebug 
 
 It also includes composer and uses php-fpm by default so it's well suited for usage in conjunction with nginx fastcgi.
