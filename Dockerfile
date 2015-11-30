@@ -25,6 +25,7 @@ RUN echo "deb http://ppa.launchpad.net/ondrej/php5-5.6/ubuntu trusty main" >> /e
     php5-imagick php5-gd \
     php5-curl \
     php5-readline \
+    php5-twig \
     php5-xdebug \
     php5-fpm && \
 
