@@ -1,49 +1,32 @@
 #!/usr/bin/env docker
 
-FROM mychiara/webbase
-MAINTAINER Andy Ruck <mychiara+docker@gmail.com>
+FROM mychiara/base:2.0.1
+LABEL maintainer="Andy Ruck"
 
-# Enable PHP 5.6 repo and update apt-get
-RUN echo "deb http://ppa.launchpad.net/ondrej/php5-5.6/ubuntu trusty main" >> /etc/apt/sources.list && \
-    apt-key adv --keyserver keyserver.ubuntu.com --recv-key E5267A6C && \
-    apt-get update && \
+ENV PHP_VERSION=7.2
 
-    apt-get install --no-install-recommends -yq \
-    imagemagick \
-    ca-certificates \
-    php5-cli \
-    php5-dev \
-    php5-apcu \
-    php5-json \
-    php5-pgsql \
-    php5-mysql \
-    php5-mongo \
-    php5-sqlite \
-    php5-mcrypt  \
-    php5-ldap \
-    php5-intl \
-    php5-imagick php5-gd \
-    php5-curl \
-    php5-readline \
-    php5-xdebug \
-    php5-fpm && \
-
-    curl https://getcomposer.org/installer | php -- && mv composer.phar /usr/local/bin/composer && chmod +x /usr/local/bin/composer && \
-    mkdir -p /var/log/php && ln -sf /dev/stdout /var/log/php/error.log && ln -sf /dev/stdout /var/log/php5-fpm.log && \
-
-    apt-get autoclean && apt-get -y autoremove && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN add-apt-repository ppa:ondrej/php && apt-get update && \
+  apt-get install --no-install-recommends -yq \
+    imagemagick ca-certificates \
+    php$PHP_VERSION php$PHP_VERSION-fpm php$PHP_VERSION-common \
+    php-apcu \
+    php-json \
+    php-imagick \
+    php$PHP_VERSION-mysql php$PHP_VERSION-pgsql php-sqlite3 php-redis \ 
+    php-xdebug php-dev && \
+  curl https://getcomposer.org/installer | php -- && mv composer.phar /usr/local/bin/composer && chmod +x /usr/local/bin/composer && \
+  mkdir -p /var/log/php && ln -sf /dev/stdout /var/log/php/error.log && ln -sf /dev/stdout /var/log/php5-fpm.log && \
+  apt-get autoclean && apt-get -y autoremove && \
+  apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Copy local .inis to the image
-COPY files/php.ini /etc/php5/fpm/php.ini
-COPY files/php-cli.ini /etc/php5/cli/php.ini
-COPY files/php-fpm.conf /etc/php5/fpm/php-fpm.conf
+# COPY files/php.ini /etc/php/fpm/php.ini
+# COPY files/php-cli.ini /etc/php/cli/php.ini
+COPY files/php-fpm.conf /etc/php/$PHP_VERSION/fpm/php-fpm.conf
 
 # init system
 RUN mkdir -p /etc/service/php-fpm /var/run/php-fpm
-ADD /files/start.sh /etc/service/php-fpm/run
+ADD files/start.sh /etc/service/php-fpm/run
 RUN chmod +x /etc/service/php-fpm/run
 
-VOLUME "/app-src"
-
-EXPOSE 9000
+EXPOSE 9000 8000
